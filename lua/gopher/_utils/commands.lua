@@ -28,6 +28,7 @@ return function(cmd, ...)
     local cmd_args = vim.list_extend({ cmd }, args) ---@diagnostic disable-line: missing-parameter
     vim.cmd "botright split"
     vim.cmd("resize " .. vim.o.lines / 4)
+    vim.cmd "terminal"
     local job = Job:new {
       command = c.go,
       args = cmd_args,
