@@ -16,6 +16,14 @@ API.tests_all = tests.all_tests
 API.get = function(...)
   cmd("get", ...)
 end
+API.run = function(...)
+  cmd("run", ...)
+end
+
+API.build = function(...)
+  cmd("build", ...)
+end
+
 API.mod = function(...)
   cmd("mod", ...)
 end
