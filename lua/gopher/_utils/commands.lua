@@ -28,10 +28,22 @@ return function(cmd, ...)
         local cmd_args = vim.list_extend({ cmd }, args) ---@diagnostic disable-line: missing-parameter
         local full_command = c.go .. " " .. table.concat(cmd_args, " ")
         local bufnr = vim.api.nvim_create_buf(false, true)
-        vim.api.nvim_set_current_buf(bufnr)
-        vim.api.nvim_win_set_buf(0, bufnr)
 
-        -- Create a new terminal
+        -- Calculate the height and position of the new window
+        local height = math.floor(vim.o.lines * 0.25)
+        local width = vim.o.columns
+        local row = vim.o.lines - height
+
+        -- Create a new window at the bottom of the screen
+        local win_id = vim.api.nvim_open_win(bufnr, true, {
+            relative = "editor",
+            width = width,
+            height = height,
+            row = row,
+            col = 0,
+            style = "minimal",
+        }) -- Create a new terminal
+
         local job_id = vim.fn.termopen(full_command)
 
         local job = Job:new {
@@ -44,7 +56,7 @@ return function(cmd, ...)
                     return
                 end
 
-                u.notify("go " .. cmd .. " was success runned", "info")
+                u.notify("go " .. cmd .. " was success run.", "info")
             end,
         }
         job:start()
@@ -60,7 +72,7 @@ return function(cmd, ...)
                         return
                     end
 
-                    u.notify("go " .. cmd .. " was success runned", "info")
+                    u.notify("go " .. cmd .. " was success run.", "info")
                 end,
             })
             :start()
