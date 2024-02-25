@@ -56,7 +56,7 @@ return function(cmd, ...)
                     return
                 end
 
-                u.notify("go " .. cmd .. " was success run.", "info")
+                u.notify("go " .. cmd .. " was successful.", "info")
             end,
         }
         job:start()
@@ -72,7 +72,7 @@ return function(cmd, ...)
                         return
                     end
 
-                    u.notify("go " .. cmd .. " was success run.", "info")
+                    u.notify("go " .. cmd .. " was successful.", "info")
                 end,
             })
             :start()
